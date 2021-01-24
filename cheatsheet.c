@@ -12,57 +12,31 @@ void cheatsheet()
 void printNotes()
 {
 	const int notesNum = 22;
-	const int offsetLen = 10;
 	const int downNotesOffset = 7;
-	const int totalLength = notesNum * 2 + offsetLen;
-	const int barsNum = 5;
-
-	signed char notes[notesNum];
-	for (signed char i = 0; i < notesNum; i++)
+	const int notesOnBarsNum = 9;
+	for (int i = 0; i < notesNum; i++)
 	{
-		notes[i] = i - downNotesOffset;
-	}
-
-
-	int currentPosition = notesNum - downNotesOffset - 1;
-	while (currentPosition >= -downNotesOffset)
-	{
-		int p = 0;
-		int isOnBar = currentPosition % 2 == 0;
-		while(p < totalLength)
+		for (int j = 0; j < notesNum; j++) 
 		{
-			if (p < offsetLen && isOnBar)
+			int drawBarBefore = i + notesOnBarsNum >= notesNum - downNotesOffset;
+			int drawBarAfter = i <= notesNum - downNotesOffset;
+			int isOnBar = i % 2 == 0;
+			int cmpToNote = i - notesNum + j;
+			int cmpSign = (cmpToNote > 0) - (cmpToNote < 0);
+			switch (cmpSign)
 			{
-				printf("-");
-				p += 1;
-			}
-			else
-			{
-				int noteIndex = (p - offsetLen) / 2;
-				int isNote = notes[noteIndex] == currentPosition;
-				if (isNote)
-				{
-					printf("O");
-					if (isOnBar)
-					{
-						printf("-");
-					}
-				}
-				else if (currentPosition >= 0 && currentPosition <= barsNum * 2 - 1)
-				{
-					printf(isOnBar ? "--" : "  ");
-				}
-				else 
-				{
-					printf("  ");
-				}
-				
-				
-				p += 2;
+				case 1:
+					printf (isOnBar && drawBarAfter ? "--" : "  ");
+					break;
+				case 0:
+					printf("O%c", isOnBar ? '-' : ' ');
+					break;
+				case -1:
+					if (!drawBarBefore && isOnBar && cmpToNote == -1) printf(" -");
+					else printf(isOnBar && drawBarBefore ? "--" : "  ");
+					break;
 			}
 		}
-
 		printf("\n");
-		currentPosition -= 1;
 	}
 }
