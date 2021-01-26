@@ -46,9 +46,13 @@ void printTabs()
 {
 	const int notesNum = 7;
 	const int totalNotesNum = 22;
-	const char firstNote = 'A';
 
+	// Offsets between consequent notes in guitar frets. 
+	// Starting from E
 	const int noteOffsets[7] = {1, 2, 2, 2, 1, 2, 2};
+
+	// This array contains the distances (in guitar frets) for each
+	// note of the griff (starting from the open 6-th string)
 	int noteDistances[totalNotesNum];
 	noteDistances[0] = 0;
 	for (int i = 1; i < totalNotesNum; i++)
@@ -57,6 +61,8 @@ void printTabs()
 		noteDistances[i] = noteDistances[i - 1] + noteOffsets[offsetIndex];
 	}
 
+	// Indices in the noteDistances array for each open string.
+	// Starting from the first.
 	const int stringsToNotes[6] = {14, 11, 9, 6, 3, 0};
 	for (int stringIndex = 0; stringIndex < 6; stringIndex++)
 	{
@@ -79,6 +85,7 @@ void printTabs()
 		printf("\n\n");
 	}
 
+	const char firstNote = 'A';
 	for(int i = 0; i < totalNotesNum; i++)
 	{
 		char note = firstNote + (i + 4) % notesNum;
