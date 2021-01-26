@@ -27,14 +27,14 @@ void printNotes()
 			switch (cmpSign)
 			{
 				case 1:
-					printf (isOnBar && drawBarAfter ? "--" : "  ");
+					printf (isOnBar && drawBarAfter ? "---" : "   ");
 					break;
 				case 0:
-					printf("O%c", isOnBar ? '-' : ' ');
+					printf("O%s", isOnBar ? "--" : "  ");
 					break;
 				case -1:
-					if (!drawBarBefore && isOnBar && cmpToNote == -1) printf(" -");
-					else printf(isOnBar && drawBarBefore ? "--" : "  ");
+					if (!drawBarBefore && isOnBar && cmpToNote == -1) printf(" --");
+					else printf(isOnBar && drawBarBefore ? "---" : "   ");
 					break;
 			}
 		}
@@ -52,7 +52,7 @@ void printTabs()
 	const int noteOffsets[7] = {1, 2, 2, 2, 1, 2, 2};
 
 	// This array contains the distances (in guitar frets) for each
-	// note of the griff (starting from the open 6-th string)
+	// note of the fretboard (starting from the open 6-th string)
 	int noteDistances[totalNotesNum];
 	noteDistances[0] = 0;
 	for (int i = 1; i < totalNotesNum; i++)
@@ -66,6 +66,7 @@ void printTabs()
 	const int stringsToNotes[6] = {14, 11, 9, 6, 3, 0};
 	for (int stringIndex = 0; stringIndex < 6; stringIndex++)
 	{
+		printf("--");
 		int stringStartingIndex = stringsToNotes[stringIndex];
 		int stringStartingDistance = noteDistances[stringStartingIndex];
 		for (int noteIndex = 0; noteIndex < totalNotesNum; noteIndex++)
@@ -74,21 +75,22 @@ void printTabs()
 			if (noteDistance < stringStartingDistance ||
 					noteDistance > stringStartingDistance + 12) 
 			{
-				printf("--");
+				printf("---");
 			}
 			else 
 			{
 				int difference = noteDistance - stringStartingDistance;
-				printf ("%d", difference);
+				printf ("%-3d", difference);
 			}
 		}
 		printf("\n\n");
 	}
 
+	printf("  ");
 	const char firstNote = 'A';
 	for(int i = 0; i < totalNotesNum; i++)
 	{
 		char note = firstNote + (i + 4) % notesNum;
-		printf("%c ", note);
+		printf("%c  ", note);
 	}
 }
