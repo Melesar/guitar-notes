@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall
-TARGET = notesDictator
+TARGET = guitar-notes
 OBJS = main.o cheatsheet.o
 
 $(TARGET): $(OBJS)
