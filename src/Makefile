@@ -1,18 +1,20 @@
 CC = gcc
 CFLAGS = -Wall
 TARGET = guitar-notes
-OBJS = main.o cheatsheet.o
+OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/cheatsheet.o
+OBJ_DIR = bin
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $(OBJ_DIR)/$@
 
-%.o: %.c
-	$(CC) -c -o$@ $<
+$(OBJ_DIR)/%.o: %.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) -c -o $@ $<
 
 run: $(TARGET)
-	./$(TARGET)
+	$(OBJ_DIR)/$(TARGET)
 
 clean:
-	rm -f *.o
+	rm -rf $(OBJ_DIR)
 
 .PHONY: $(TARGET) clean
