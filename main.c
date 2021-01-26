@@ -13,7 +13,7 @@ const unsigned int INTERVAL = 3;
 
 static volatile int keepRunning = 1;
 
-void drawGriff(char* letters, int stringIndex, int noteIndex);
+void drawFretboard(char* letters, int stringIndex, int noteIndex);
 void interruptHandler(int arg);
 void cheatsheet();
 
@@ -74,7 +74,7 @@ int main (int argc, char** argv)
 
 		if ((strings & (1 << stringIndex)) != 0)
 		{
-			drawGriff(letters, stringIndex, noteIndex);
+			drawFretboard(letters, stringIndex, noteIndex);
 			sleep(period);
 		}
 	}
@@ -82,15 +82,15 @@ int main (int argc, char** argv)
 	return 0;
 }
 
-void drawGriff(char* letters, int stringIndex, int noteIndex)
+void drawFretboard(char* letters, int stringIndex, int noteIndex)
 {
-	const int griffLength = 20;
+	const int fretboardLength = 20;
 	for (int string = 0; string < NUM_STRINGS; string++)
 	{
 		printf("%c[2K\r", 27); //Clear the current line
 		printf("%c", stringIndex == string ? letters[noteIndex] : ' ');
 		printf(" ");
-		for (int i = 0; i < griffLength; i++)
+		for (int i = 0; i < fretboardLength; i++)
 		{
 			printf("-");
 		}
